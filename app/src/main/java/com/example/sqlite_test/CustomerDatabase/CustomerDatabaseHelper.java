@@ -6,42 +6,49 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import androidx.annotation.Nullable;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerDatabaseHelper extends SQLiteOpenHelper {
+// Singleton
+public class CustomerDatabaseHelper {
 
+    private static SQLiteOpenHelper _openHelper;
+    private static SQLiteDatabase _db;
+    private static CustomerDatabaseHelper _instance;
 
-    public CustomerDatabaseHelper(@Nullable Context context) {
-        super(context, "CustomerDb", null, 1);
+    // private to avoid creation outside this class
+    private CustomerDatabaseHelper(Context context){
+        this._openHelper = new DatabaseOpenHelper(context);
     }
 
-    @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String createCustomerTable = "CREATE TABLE Customer(" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "customer_name TEXT," +
-                "customer_description TEXT);";
 
-        sqLiteDatabase.execSQL(createCustomerTable);
+    // Returns singleton instance of CustomerDatabaseHelper
+    public static CustomerDatabaseHelper getInstance(Context context){
+        if(_instance == null){
+            _instance = new CustomerDatabaseHelper(context);
+        }
+        return _instance;
     }
 
-    @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+    // Open database connection
+    public static void open() {
+        _db = _openHelper.getWritableDatabase();
     }
 
-    public boolean addOne(Customer customer){
-        SQLiteDatabase db = this.getWritableDatabase();
+    // Close database connection
+    public static void close(){
+        _db.close();
+    }
+
+
+    // Inserts Customer and returns boolean whether it was added or not.
+    public boolean insertCustomer(Customer customer){
 
         ContentValues cv = new ContentValues();
-
         cv.put("customer_name", customer.getName());
         cv.put("customer_description", customer.getDescription());
 
-        long insert = db.insert("Customer", null, cv);
+        long insert = _db.insert("Customer", null, cv);
 
         if(insert == -1){
             return false;
@@ -50,15 +57,10 @@ public class CustomerDatabaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public List<Customer> getCustomers() {
+    public static List<Customer> getCustomers() {
         List<Customer> retList = new ArrayList<>();
-
         String queryString = "SELECT * FROM Customer";
-
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.rawQuery(queryString, null);
-
+        Cursor cursor = _db.rawQuery(queryString, null);
         if(cursor.moveToFirst()) {
             do {
                 int custId = cursor.getInt(0);
@@ -72,9 +74,22 @@ public class CustomerDatabaseHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
 
+        // Close the result set
         cursor.close();
-        db.close();
 
         return retList;
     }
+
+
+    public void updateCustomer(Customer oldCustomer, Customer newCustomer){
+    ContentValues cust = new ContentValues();
+    cust.put("customer_name", newCustomer.getName());
+    cust.put("customer_description", newCustomer.getDescription());
+    _db.update("Customer", cust, "customer_name = ?", new String[]{oldCustomer.getName()});
+    }
+
+    public void deleteCustomer(Customer customer){
+        _db.delete("Customer", "customer_name = ?", new String[]{customer.getName()});
+    }
+
 }
