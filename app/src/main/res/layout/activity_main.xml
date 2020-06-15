@@ -9,11 +9,11 @@
 
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/ViewCustomerBtn"
         android:layout_width="match_parent"
         android:layout_height="118dp"
         android:layout_weight="1"
-        android:text="Button"
+        android:text="View Customers"
         android:onClick="SelectCust"/>
 
     <ListView

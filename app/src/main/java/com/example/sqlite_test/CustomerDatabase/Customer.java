@@ -40,11 +40,10 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer{" +
-                "id=" + id +
-                ", name="+name +'\'' +
-                ", description=" + description +
-                "}";
+        return "Customer\n" +
+                "ID= " + id +
+                "\nName= "+name +'\'' +
+                "\nDescription= " + description;
     }
 }
 

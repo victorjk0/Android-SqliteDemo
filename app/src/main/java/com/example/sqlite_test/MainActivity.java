@@ -35,9 +35,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         this._customerDatabaseHelper = CustomerDatabaseHelper.getInstance(getApplicationContext());
-
+        this._customerDatabaseHelper.open();
         this._customerDatabaseHelper.insertCustomer(new Customer(-1, "DingoDjango", "En vældig fin fella"));
-
+        this._customerDatabaseHelper.close();
 
 
     }
