@@ -40,7 +40,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
                 "customer_name TEXT," +
                 "customer_description TEXT);");
 
-        db.execSQL("CREATE TABLE Addres(Id INTEGER PRIMARY KEY AUTOINCREMENT, street_name TEXT, zip_code INTEGER);");
+        db.execSQL("CREATE TABLE Address(Id INTEGER PRIMARY KEY AUTOINCREMENT, street_name TEXT, zip_code INTEGER);");
         db.execSQL("CREATE TABLE Secret(Id INTEGER PRIMARY KEY AUTOINCREMENT, secret_code TEXT, flag INTEGER);");
     }
 }

@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.sqlite_test.AddresDatabase.Address;
+import com.example.sqlite_test.AddresDatabase.AddressDatabaseHelper;
 import com.example.sqlite_test.CustomerDatabase.Customer;
 import com.example.sqlite_test.CustomerDatabase.CustomerDatabaseHelper;
 
@@ -16,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ListView custListView;
     private CustomerDatabaseHelper _customerDatabaseHelper;
+    private AddressDatabaseHelper _addressDatabaseHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,10 +28,15 @@ public class MainActivity extends AppCompatActivity {
 
         this._customerDatabaseHelper = CustomerDatabaseHelper.getInstance(getApplicationContext());
 
-        // Insert Test data in SQlite Database
+        // Insert Customer Test data in SQlite Database
         this._customerDatabaseHelper.open();
         this._customerDatabaseHelper.insertCustomer(new Customer(-1, "DingoDjango", "En vældig fin fella"));
         this._customerDatabaseHelper.close();
+
+        //Insert Address Data in SQLite for Test
+        this._addressDatabaseHelper.open();
+        this._addressDatabaseHelper.insertAddress(new Address(-1, "BingBongvej 42", "4308"));
+        this._addressDatabaseHelper.close();
 
     }
 
@@ -40,11 +48,23 @@ public class MainActivity extends AppCompatActivity {
 
         return custList;
     }
-
     public void SelectCust(View view) {
 
        List<Customer> custList =  getCustomers();
         ArrayAdapter customerArrayAdapter = new ArrayAdapter<Customer>(MainActivity.this, R.layout.cust_item, R.id.custToString,custList);
         custListView.setAdapter(customerArrayAdapter);
+    }
+
+    private List<Address> getAddresses(){
+        AddressDatabaseHelper.open();
+        List<Address> addList = AddressDatabaseHelper.getAddresses();
+        AddressDatabaseHelper.close();
+
+        return addList;
+    }
+    public void SelectAddress(View view) {
+        List<Address> addList = getAddresses();
+        ArrayAdapter addressArrayAdapter = new ArrayAdapter<Address>(MainActivity.this, R.layout.cust_item, R.id.custToString,addList);
+        custListView.setAdapter(addressArrayAdapter);
     }
 }

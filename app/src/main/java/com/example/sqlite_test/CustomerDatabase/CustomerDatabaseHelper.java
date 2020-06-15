@@ -21,7 +21,6 @@ public class CustomerDatabaseHelper {
         this._openHelper = new DatabaseOpenHelper(context);
     }
 
-
     // Returns singleton instance of CustomerDatabaseHelper
     public static CustomerDatabaseHelper getInstance(Context context){
         if(_instance == null){
@@ -39,7 +38,6 @@ public class CustomerDatabaseHelper {
     public static void close(){
         _db.close();
     }
-
 
     // Inserts Customer and returns boolean whether it was added or not.
     public boolean insertCustomer(Customer customer){
@@ -79,7 +77,6 @@ public class CustomerDatabaseHelper {
 
         return retList;
     }
-
 
     public void updateCustomer(Customer oldCustomer, Customer newCustomer){
     ContentValues cust = new ContentValues();
