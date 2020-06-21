@@ -43,18 +43,26 @@ public class CustomerDatabaseHelper {
     public boolean insertCustomer(Customer customer){
 
         ContentValues cv = new ContentValues();
+
         cv.put("customer_name", customer.getName());
         cv.put("customer_description", customer.getDescription());
 
         long insert = _db.insert("Customer", null, cv);
 
-        return insert != -1;
+        // Checks if rows have been updated.
+        if(insert == -1){
+            return false;
+        }
+
+        return true;
     }
 
     public static List<Customer> getCustomers() {
         List<Customer> retList = new ArrayList<>();
         String queryString = "SELECT * FROM Customer";
         Cursor cursor = _db.rawQuery(queryString, null);
+        // Checks if data is returned.
+        // if yes add result set to array list
         if(cursor.moveToFirst()) {
             do {
                 int custId = cursor.getInt(0);
@@ -78,10 +86,12 @@ public class CustomerDatabaseHelper {
     ContentValues cust = new ContentValues();
     cust.put("customer_name", newCustomer.getName());
     cust.put("customer_description", newCustomer.getDescription());
+    // Updates customer entry on customer_name match.
     _db.update("Customer", cust, "customer_name = ?", new String[]{oldCustomer.getName()});
     }
 
     public void deleteCustomer(Customer customer){
+        // Deletes customer entry on customer_name match.
         _db.delete("Customer", "customer_name = ?", new String[]{customer.getName()});
     }
 
