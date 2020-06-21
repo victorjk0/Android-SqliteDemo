@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ListView custListView;
     private CustomerDatabaseHelper _customerDatabaseHelper;
-    private AddressDatabaseHelper _addressDatabaseHelper;
+    //private AddressDatabaseHelper _addressDatabaseHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,17 +26,17 @@ public class MainActivity extends AppCompatActivity {
 
         custListView = findViewById(R.id.CustList);
 
-        _customerDatabaseHelper = CustomerDatabaseHelper.getInstance(getApplicationContext());
+        this._customerDatabaseHelper = CustomerDatabaseHelper.getInstance(getApplicationContext());
 
         // Insert Customer Test data in SQlite
         CustomerDatabaseHelper.open();
-        _customerDatabaseHelper.insertCustomer(new Customer(-1, "DingoDjango", "En vældig fin fella"));
+        this._customerDatabaseHelper.insertCustomer(new Customer(-1, "DingoDjango", "En vældig fin fella"));
         CustomerDatabaseHelper.close();
 
         //Insert Address Data in SQLite for Test
-        AddressDatabaseHelper.open();
-        _addressDatabaseHelper.insertAddress(new Address(-1, "BingBongvej 42", "4308"));
-        AddressDatabaseHelper.close();
+        //this._addressDatabaseHelper.open();
+        //this._addressDatabaseHelper.insertAddress(new Address(-1, "BingBongvej 42", "4308"));
+        //this._addressDatabaseHelper.close();
 
     }
 
