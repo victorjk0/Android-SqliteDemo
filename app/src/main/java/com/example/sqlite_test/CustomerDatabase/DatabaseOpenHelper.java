@@ -14,7 +14,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     private static final int _DbVersion = 1;
 
     public DatabaseOpenHelper(@Nullable Context context) {
-        super(context, _DbName, null, _DbVersion);
+        super(context, _DbName, null, _DbVersion); // null is default Factory
     }
 
 

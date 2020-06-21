@@ -28,15 +28,15 @@ public class MainActivity extends AppCompatActivity {
 
         this._customerDatabaseHelper = CustomerDatabaseHelper.getInstance(getApplicationContext());
 
-        // Insert Customer Test data in SQlite Database
-        this._customerDatabaseHelper.open();
+        // Insert Customer Test data in SQlite
+        CustomerDatabaseHelper.open();
         this._customerDatabaseHelper.insertCustomer(new Customer(-1, "DingoDjango", "En vældig fin fella"));
-        this._customerDatabaseHelper.close();
+        CustomerDatabaseHelper.close();
 
         //Insert Address Data in SQLite for Test
-        this._addressDatabaseHelper.open();
+        AddressDatabaseHelper.open();
         this._addressDatabaseHelper.insertAddress(new Address(-1, "BingBongvej 42", "4308"));
-        this._addressDatabaseHelper.close();
+        AddressDatabaseHelper.close();
 
     }
 
