@@ -18,7 +18,7 @@ public class CustomerDatabaseHelper {
 
     // private to avoid creation outside this class
     private CustomerDatabaseHelper(Context context){
-        this._openHelper = new DatabaseOpenHelper(context);
+        _openHelper = new DatabaseOpenHelper(context);
     }
 
     // Returns singleton instance of CustomerDatabaseHelper
@@ -48,11 +48,7 @@ public class CustomerDatabaseHelper {
 
         long insert = _db.insert("Customer", null, cv);
 
-        if(insert == -1){
-            return false;
-        }
-
-        return true;
+        return insert != -1;
     }
 
     public static List<Customer> getCustomers() {

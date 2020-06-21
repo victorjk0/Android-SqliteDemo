@@ -26,16 +26,16 @@ public class MainActivity extends AppCompatActivity {
 
         custListView = findViewById(R.id.CustList);
 
-        this._customerDatabaseHelper = CustomerDatabaseHelper.getInstance(getApplicationContext());
+        _customerDatabaseHelper = CustomerDatabaseHelper.getInstance(getApplicationContext());
 
         // Insert Customer Test data in SQlite
         CustomerDatabaseHelper.open();
-        this._customerDatabaseHelper.insertCustomer(new Customer(-1, "DingoDjango", "En vældig fin fella"));
+        _customerDatabaseHelper.insertCustomer(new Customer(-1, "DingoDjango", "En vældig fin fella"));
         CustomerDatabaseHelper.close();
 
         //Insert Address Data in SQLite for Test
         AddressDatabaseHelper.open();
-        this._addressDatabaseHelper.insertAddress(new Address(-1, "BingBongvej 42", "4308"));
+        _addressDatabaseHelper.insertAddress(new Address(-1, "BingBongvej 42", "4308"));
         AddressDatabaseHelper.close();
 
     }

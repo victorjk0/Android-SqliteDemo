@@ -17,13 +17,11 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         super(context, _DbName, null, _DbVersion); // null is default Factory
     }
 
-
     // Fires whenever the class is instantiated.
     @Override
     public void onCreate(SQLiteDatabase db) {
         createTables(db);
     }
-
 
     // Fires whenever MAJOR changes has been made in the database (major enough for it to actually change the version).
     @Override
